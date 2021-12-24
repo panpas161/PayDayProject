@@ -25,8 +25,4 @@ public abstract class Tile{
         this.image = image;
     }
     public abstract void performAction();
-//    public void getCards(Card C)
-//    {
-//
-//    }
 }

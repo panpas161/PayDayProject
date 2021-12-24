@@ -22,7 +22,7 @@ public class Board {
     {
         tiles = new ArrayList<>();
         players = new ArrayList<>();
-        for(int i=1;i<=31;i++)
+        for(int i=0;i<32;i++)
         {
             tiles.add(new BuyerTile(i,Days.getDay(i)));
             tiles.add(new DealTile(i,Days.getDay(i)));
@@ -45,7 +45,7 @@ public class Board {
      */
     public int getPlayerPosition(Player player)
     {
-        return 0;
+        return player.getCurrentPosition();
     }
 
     /**
@@ -56,6 +56,6 @@ public class Board {
      */
     public void movePlayerToPosition(Player player, int position)
     {
-
+        player.setCurrentPosition(position);
     }
 }

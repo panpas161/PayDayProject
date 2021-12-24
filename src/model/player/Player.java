@@ -1,5 +1,6 @@
 package model.player;
 
+import model.board.Dice;
 import model.card.DealCard;
 
 import java.util.ArrayList;
@@ -13,6 +14,8 @@ public class Player {
     private float bills;
     private float loans;
     private ArrayList<DealCard> dealCards;
+    private Dice dice;
+    private int currentPosition;
     /**
      * Constructor.
      * Postcondition: Creates and initializes a player
@@ -26,6 +29,8 @@ public class Player {
         this.bills = 0;
         this.loans = 0;
         dealCards = new ArrayList<>();
+        dice = new Dice();
+        this.currentPosition = 0;
     }
     /**
      * Accessor.
@@ -81,6 +86,13 @@ public class Player {
     {
         this.dealCards.remove(dealCard);
     }
+
+
+    public ArrayList<DealCard> getDealCards() {
+        return this.dealCards;
+    }
+
+
     /**
      * Transformer.
      * Postcondition: pays all player's bills removing them from his balance
@@ -191,5 +203,18 @@ public class Player {
     public void removeCash(float cash)
     {
         this.balance -= cash;
+    }
+
+    public Dice getDice()
+    {
+        return this.dice;
+    }
+    public int getCurrentPosition()
+    {
+        return this.currentPosition;
+    }
+    public void setCurrentPosition(int position)
+    {
+        this.currentPosition = position;
     }
 }

@@ -9,7 +9,6 @@ import model.deck.DealCardDeck;
  */
 public class Controller {
     private Player p1,p2;
-    private Dice d1,d2;
     private MailCardDeck mailCardDeck;
     private DealCardDeck dealCardDeck;
     private Board board;
@@ -25,8 +24,6 @@ public class Controller {
     {
         p1 = new Player("Player1",3500);
         p2 = new Player("Player2",3500);
-        d1 =  new Dice(p1);
-        d2 = new Dice(p2);
         mailCardDeck = new MailCardDeck();
         dealCardDeck = new DealCardDeck();
         board = new Board();
@@ -34,5 +31,4 @@ public class Controller {
         board.addPlayer(p2);
         this.months = months;
     }
-
 }
