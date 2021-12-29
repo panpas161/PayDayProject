@@ -20,6 +20,8 @@ public class Turn {
         {
             turnNumber = 1;
         }
+        players.get(turnNumber).getDice().roll();
+        players.get(turnNumber).movePositionRight(players.get(turnNumber).getDice().getCurrentValue());
     }
     public int currentTurnNumber()
     {

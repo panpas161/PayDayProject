@@ -30,6 +30,9 @@ public class DealCardDeck {
      */
     public void draw(Player player)
     {
-
+        int lastIndex = this.dealCards.size()-1;
+        player.addDealCard(this.dealCards.get(lastIndex));
+        this.rejectedDealCards.add(this.dealCards.get(lastIndex));
+        this.dealCards.remove(this.dealCards.get(lastIndex));
     }
 }

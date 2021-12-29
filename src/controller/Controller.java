@@ -4,6 +4,9 @@ import model.board.Dice;
 import model.player.Player;
 import model.deck.MailCardDeck;
 import model.deck.DealCardDeck;
+
+import java.io.IOException;
+
 /**
  * Controller is the "brain" of the game all the initializations occur here.
  */
@@ -20,8 +23,7 @@ public class Controller {
      * 2 card decks
      * @param months: the months the game will last
      */
-    public Controller(int months)
-    {
+    public Controller(int months) throws IOException {
         p1 = new Player("Player1",3500);
         p2 = new Player("Player2",3500);
         mailCardDeck = new MailCardDeck();

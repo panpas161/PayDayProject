@@ -5,6 +5,7 @@ import model.card.mail.*;
 import model.player.Player;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class MailCardDeck {
     private ArrayList<MailCard> mailCards;
@@ -35,7 +36,7 @@ public class MailCardDeck {
      */
     public void shuffle()
     {
-
+        Collections.shuffle(this.mailCards);
     }
     /**
      * Transformer.

@@ -217,4 +217,8 @@ public class Player {
     {
         this.currentPosition = position;
     }
+    public void movePositionRight(int position)
+    {
+        this.currentPosition += position;
+    }
 }

@@ -6,6 +6,7 @@ import functions.DaysChecker.Days;
 import model.player.Player;
 
 import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.util.ArrayList;
 /**
  * This class represents the board of the game
@@ -18,15 +19,15 @@ public class Board {
      * Constructor.
      * Postcondition: Creates and initializes the board
      */
-    public Board()
-    {
+    public Board() throws IOException {
         tiles = new ArrayList<>();
         players = new ArrayList<>();
-        for(int i=0;i<32;i++)
+        tiles.add(new StartTile());
+        for(int i=1;i<32;i++)
         {
             tiles.add(new BuyerTile(i,Days.getDay(i)));
             tiles.add(new DealTile(i,Days.getDay(i)));
-            //more tiles etc.
+            tiles.add(new FamilyCasinoNightTile(i,Days.getDay(i)));
         }
     }
     /**
@@ -57,5 +58,10 @@ public class Board {
     public void movePlayerToPosition(Player player, int position)
     {
         player.setCurrentPosition(position);
+    }
+
+    public ArrayList<Tile> getTiles()
+    {
+        return this.tiles;
     }
 }

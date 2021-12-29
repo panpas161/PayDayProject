@@ -1,5 +1,11 @@
 package model.event;
 
+import functions.PathFinder;
+
+import javax.imageio.ImageIO;
+import java.io.File;
+import java.io.IOException;
+
 /**
  * Jackpot class represents the jackpot event
  */
@@ -9,11 +15,13 @@ public class Jackpot extends Event{
      * Constructor.
      * Postcondition: Creates and initializes a jackpot event
      */
-    public Jackpot()
-    {
+    public Jackpot() throws IOException {
         super(
             0,
-            "jackpot"
+            "jackpot",
+                "Jackpot",
+                "Κερδισες κτλ",
+                ImageIO.read(new File(PathFinder.Images.getImage("jackpot.png")))
         );
         this.value = 0;
     }

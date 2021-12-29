@@ -9,7 +9,7 @@ import java.awt.image.BufferedImage;
  */
 public abstract class Tile{
     private int position;
-    private String day;
+    protected String day;
     private BufferedImage image;
     /**
      * Constructor.
@@ -23,6 +23,15 @@ public abstract class Tile{
         this.position = position;
         this.day = day;
         this.image = image;
+    }
+    public String getDate()
+    {
+        return this.position + " " + this.day;
+    }
+
+    public BufferedImage getImage()
+    {
+        return this.image;
     }
     public abstract void performAction();
 }
