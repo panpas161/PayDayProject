@@ -61,4 +61,9 @@ public class Jackpot extends Event{
     {
         this.value -= value;
     }
+
+    @Override
+    public void performAction() {
+//        Events.jackpot
+    }
 }

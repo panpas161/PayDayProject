@@ -1,10 +1,13 @@
 package view;
 
+import model.card.DealCard;
 import model.card.MailCard;
 
-public class DealCardPopup extends CardPopup{
-    public DealCardPopup(MailCard card)
+import javax.swing.*;
+
+public class DealCardPopup extends JFrame {
+    public DealCardPopup(DealCard card)
     {
-        super(card);
+
     }
 }

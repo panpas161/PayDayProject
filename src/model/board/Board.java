@@ -1,8 +1,15 @@
 package model.board;
 
+import controller.Config;
+import functions.DaysChecker;
 import model.board.tiles.*;
 
-import functions.DaysChecker.Days;
+import model.card.DealCard;
+import model.card.MailCard;
+import model.deck.DealCardDeck;
+import model.deck.MailCardDeck;
+import model.event.Jackpot;
+import model.event.PayDay;
 import model.player.Player;
 
 import java.awt.image.BufferedImage;
@@ -13,30 +20,18 @@ import java.util.ArrayList;
  */
 public class Board {
     private BufferedImage logo;
-    private ArrayList<Tile> tiles;
-    private ArrayList<Player> players;
+    private Tile[] tiles;
+    private Player p1,p2;
+    private MailCardDeck mailCardDeck;
+    private DealCardDeck dealCardDeck;
     /**
      * Constructor.
      * Postcondition: Creates and initializes the board
      */
-    public Board() throws IOException {
-        tiles = new ArrayList<>();
-        players = new ArrayList<>();
-        tiles.add(new StartTile());
-        for(int i=1;i<32;i++)
-        {
-            tiles.add(new BuyerTile(i,Days.getDay(i)));
-            tiles.add(new DealTile(i,Days.getDay(i)));
-            tiles.add(new FamilyCasinoNightTile(i,Days.getDay(i)));
-        }
-    }
-    /**
-     * Transformer.
-     * Postcondition: adds a player to the board
-     */
-    public void addPlayer(Player player)
-    {
-        players.add(player);
+    public Board(Player p1,Player p2) throws IOException {
+        tiles = Config.Values.Tiles(false);
+        this.p1 = p1;
+        this.p2 = p2;
     }
     /**
      * Accessor.
@@ -49,6 +44,10 @@ public class Board {
         return player.getCurrentPosition();
     }
 
+    public Tile getCurrentPlayerTile(Player player)
+    {
+        return tiles[player.getCurrentPosition()];
+    }
     /**
      * Transformer.
      * moves a player to certain position
@@ -58,10 +57,79 @@ public class Board {
     public void movePlayerToPosition(Player player, int position)
     {
         player.setCurrentPosition(position);
+        this.tiles[position].performAction(player);
     }
 
-    public ArrayList<Tile> getTiles()
+    public void movePlayerToPositionRight(Player player,int position)
+    {
+        player.movePositionRight(position);
+        if(player.getCurrentPosition() > 31)
+        {
+            new PayDay(player);
+        }
+        DaysChecker.Days.checkDayEvent(position);
+        this.tiles[player.getCurrentPosition()+position].performAction(player);
+    }
+
+    public Tile[] getTiles()
     {
         return this.tiles;
+    }
+
+    /**
+     *
+     * Post Condition: Will return
+     * @param tile: The tile object we're looking for
+     * @param startPosition: Search will start on this position
+     * @return
+     */
+    public int getTilePosition(Class tile,int startPosition)
+    {
+        for(int i=startPosition;i<this.tiles.length;i++)
+        {
+            if(tiles[i].getClass() == tile)
+            {
+                return tiles[i].getPosition();
+            }
+        }
+        return -1;
+    }
+
+    public Player getPlayer1()
+    {
+        return this.p1;
+    }
+
+    public Player getPlayer2()
+    {
+        return this.p2;
+    }
+
+    public void adjustPlayersToTiles()
+    {
+        int playerOnePosition = p1.getCurrentPosition();
+        int playerTwoPosition = p2.getCurrentPosition();
+        tiles[playerOnePosition].addPlayer(p1);
+        tiles[playerTwoPosition].addPlayer(p2);
+    }
+
+    public void setDealCardDeck(DealCardDeck dealCardDeck)
+    {
+        this.dealCardDeck = dealCardDeck;
+    }
+
+    public DealCardDeck getDealCardDeck()
+    {
+        return this.dealCardDeck;
+    }
+
+    public void setMailCardDeck(MailCardDeck mailCardDeck)
+    {
+        this.mailCardDeck = mailCardDeck;
+    }
+
+    public MailCardDeck getMailCardDeck()
+    {
+        return this.mailCardDeck;
     }
 }

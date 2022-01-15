@@ -1,8 +1,16 @@
 package model.player;
 
+import controller.Config;
+import functions.DaysChecker;
 import model.board.Dice;
 import model.card.DealCard;
+import model.event.PayDay;
+import model.event.SundayFootballDay;
+import model.event.ThursdayRiseValueCrypto;
+import view.EventPopup;
 
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -16,21 +24,25 @@ public class Player {
     private ArrayList<DealCard> dealCards;
     private Dice dice;
     private int currentPosition;
+    private int currentMonth;
+    private BufferedImage pawn;
     /**
      * Constructor.
      * Postcondition: Creates and initializes a player
      * @param name: The player's name
      * @param balance: The player's starting balance
      */
-    public Player(String name,float balance)
+    public Player(String name,float balance,BufferedImage pawn)
     {
         this.name = name;
         this.balance = balance;
         this.bills = 0;
         this.loans = 0;
         dealCards = new ArrayList<>();
-        dice = new Dice();
+        dice = new Dice(this);
         this.currentPosition = 0;
+        this.currentMonth = 0;
+        this.pawn = pawn;
     }
     /**
      * Accessor.
@@ -68,6 +80,15 @@ public class Player {
     {
         this.balance = balance;
     }
+
+    public void sendMoney(Player receiver,float amount)
+    {
+        if(this.balance >= amount)
+        {
+            this.balance -= amount;
+            receiver.addCash(amount);
+        }
+    }
     /**
      * Transformer.
      * Postcondition: adds a deal card to the player's deck
@@ -92,7 +113,6 @@ public class Player {
         return this.dealCards;
     }
 
-
     /**
      * Transformer.
      * Postcondition: pays all player's bills removing them from his balance
@@ -101,7 +121,8 @@ public class Player {
     {
         if(this.bills < this.balance)
         {
-
+            removeCash(bills);
+            removeBills(bills);
         }
     }
     /**
@@ -113,7 +134,8 @@ public class Player {
     {
         if(amount < this.balance)
         {
-            //code
+            removeCash(amount);
+            removeBills(amount);
         }
     }
     /**
@@ -176,6 +198,7 @@ public class Player {
     public void takeLoan(float loanValue)
     {
         this.loans += loanValue;
+        this.balance += loanValue;
     }
     /**
      * Transformer.
@@ -213,12 +236,26 @@ public class Player {
     {
         return this.currentPosition;
     }
-    public void setCurrentPosition(int position)
-    {
+    public void setCurrentPosition(int position) {
         this.currentPosition = position;
+        DaysChecker.Days.checkDayEvent(currentPosition);
     }
     public void movePositionRight(int position)
     {
         this.currentPosition += position;
+    }
+
+    public int getCurrentMonth()
+    {
+        return this.currentMonth;
+    }
+
+    public void setCurrentMonth(int month)
+    {
+        this.currentMonth = month;
+    }
+    public BufferedImage getPawnImage()
+    {
+        return this.pawn;
     }
 }

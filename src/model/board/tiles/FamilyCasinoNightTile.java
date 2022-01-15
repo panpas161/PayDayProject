@@ -1,7 +1,11 @@
 package model.board.tiles;
 
+import functions.DaysChecker;
 import functions.PathFinder;
+import model.board.Board;
 import model.board.Tile;
+import model.player.Player;
+import controller.Controller;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -9,16 +13,24 @@ import java.io.File;
 import java.io.IOException;
 
 public class FamilyCasinoNightTile extends Tile {
-    public FamilyCasinoNightTile(int number, String day) throws IOException {
+    public FamilyCasinoNightTile(int number) throws IOException {
         super(
             number,
-            day,
+            DaysChecker.Days.getDay(number),
             ImageIO.read(new File(PathFinder.Images.getImage("casino.png")))
         );
     }
 
     @Override
-    public void performAction() {
-
+    public void performAction(Player player) {
+        if(player.getDice().getCurrentValue()%2==0)
+        {
+            player.addCash(500);
+        }
+        else
+        {
+            player.removeCash(500);
+            Controller.jackpot.addValue(500);
+        }
     }
 }

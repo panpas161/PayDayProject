@@ -1,6 +1,7 @@
 package model.event;
 
 import functions.PathFinder;
+import model.player.Player;
 
 import javax.imageio.ImageIO;
 import java.io.File;
@@ -15,5 +16,12 @@ public class SundayFootballDay extends Event{
                 "",
                 ImageIO.read(new File(PathFinder.Images.getImage("")))
         );
+        performAction();
+    }
+
+    @Override
+    public void performAction()
+    {
+
     }
 }

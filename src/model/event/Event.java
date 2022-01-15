@@ -13,7 +13,8 @@ public abstract class Event {
     protected BufferedImage image;
     private int optionsNumber;
     private String[] optionStrings;
-    protected Event(int id, String eventName,String alias,String description,BufferedImage image) {
+    protected Event(int id, String eventName,String alias,String description,BufferedImage image)
+    {
         this.id = id;
         this.eventName = eventName;
         this.alias = alias;
@@ -37,4 +38,6 @@ public abstract class Event {
     {
         return this.alias;
     }
+
+    public abstract void performAction();
 }

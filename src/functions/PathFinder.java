@@ -6,7 +6,7 @@ public class PathFinder
     {
         public static String getImage(String filename)
         {
-            return "C:\\Users\\user\\Downloads\\Phase1\\src\\resources\\image\\" + filename;
+            return "C:\\Users\\User\\IdeaProjects\\PayDayProject\\src\\resources\\image\\" + filename;
         }
     }
 }

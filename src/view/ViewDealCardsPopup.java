@@ -1,13 +1,16 @@
 package view;
 
 import model.card.DealCard;
+import model.player.Player;
 
 import javax.swing.*;
+import java.awt.*;
 import java.util.ArrayList;
 
-public class ViewCardsPopup extends JFrame {
-    public ViewCardsPopup(ArrayList<DealCard> dealCards)
+public class ViewDealCardsPopup extends JFrame {
+    public ViewDealCardsPopup(Player player)
     {
+        ArrayList<DealCard> dealCards = player.getDealCards();
         ArrayList<JPanel> cardPanels = new ArrayList<>();
         for(int i=0;i<dealCards.size();i++)
         {
@@ -25,6 +28,8 @@ public class ViewCardsPopup extends JFrame {
         {
             this.add(cardPanels.get(i));
         }
+        this.setLayout(new GridLayout(cardPanels.size()/5,4));
+        this.setTitle(player.getName() + " - " + "Deal Cards");
         this.setSize(400,500);
         this.setLayout(null);
         this.setVisible(true);

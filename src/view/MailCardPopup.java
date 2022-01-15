@@ -1,9 +1,19 @@
 package view;
 
+import model.card.Card;
 import model.card.MailCard;
 
-public class MailCardPopup extends CardPopup{
-    public MailCardPopup(MailCard card) {
-        super(card);
+import javax.swing.*;
+import java.awt.*;
+
+public class MailCardPopup extends JFrame {
+    TextField description;
+    Button confirm;
+    public MailCardPopup(MailCard card)
+    {
+        this.setTitle(card.getTitle());
+        description = new TextField(card.getDescription());
+        description.setBounds(50,100,60,50);
+        confirm = new Button(card.getConfirmText());
     }
 }

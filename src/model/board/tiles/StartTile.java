@@ -2,6 +2,7 @@ package model.board.tiles;
 
 import functions.PathFinder;
 import model.board.Tile;
+import model.player.Player;
 
 import javax.imageio.ImageIO;
 import java.io.File;
@@ -21,7 +22,7 @@ public class StartTile extends Tile {
         return this.day;
     }
     @Override
-    public void performAction() {
+    public void performAction(Player player){
 
     }
 }

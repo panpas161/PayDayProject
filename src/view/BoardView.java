@@ -1,6 +1,5 @@
 package view;
 
-import functions.DaysChecker;
 import model.board.Board;
 
 import javax.swing.*;
@@ -16,13 +15,13 @@ public class BoardView extends JPanel
         ArrayList<JLabel> tileImages = new ArrayList<>();
         ArrayList<JPanel> tiles = new ArrayList<>();
         JPanel jackpot = new JPanel();
-        for(int i=0;i<board.getTiles().size();i++)
+        for(int i = 0; i< board.getTiles().length; i++)
         {
             dates.add(
-                new JLabel(board.getTiles().get(i).getDate())
+                new JLabel(board.getTiles()[i].getDate())
             );
             tileImages.add(
-                new JLabel(new ImageIcon(board.getTiles().get(i).getImage()))
+                new JLabel(new ImageIcon(board.getTiles()[i].getImage()))
             );
             tileImages.get(i).setPreferredSize(new Dimension(30,40));
             JPanel tile = new JPanel();
