@@ -4,24 +4,37 @@ import model.board.Board;
 import model.card.MailCard;
 import model.card.mail.*;
 import model.player.Player;
+import view.MailCardPopup;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 
 public class MailCardDeck {
     private ArrayList<MailCard> mailCards;
     private ArrayList<MailCard> rejectedMailCards;
+
+    /**
+     * Constructor.
+     * Post Condition: creates a mail card deck full of cards
+     * @param board
+     */
     public MailCardDeck(Board board)
     {
         mailCards = new ArrayList<>();
+        rejectedMailCards = new ArrayList<>();
         for(int i=0;i<9;i++)
         {
-            mailCards.add(new PayNeighbor(board));
-            mailCards.add(new TakeFromNeighbor(board));
-            mailCards.add(new Charity(board));
-            mailCards.add(new Bill(board));
-            mailCards.add(new MoveToDealOrBuyer(board));
-            mailCards.add(new Advertisement(board));
+            try {
+                mailCards.add(new PayNeighbor(board));
+                mailCards.add(new TakeFromNeighbor(board));
+                mailCards.add(new Charity(board));
+                mailCards.add(new Bill(board));
+                mailCards.add(new MoveToDealOrBuyer(board));
+                mailCards.add(new Advertisement(board));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
         shuffle();
     }

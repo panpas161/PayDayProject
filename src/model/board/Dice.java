@@ -12,7 +12,7 @@ public class Dice {
     private Player owner;
     /**
      * Constructor.
-     * Postcondition: creates a dice instance that belongs to a player
+     * Postcondition: creates a Dice instance that belongs to a player
      */
     public Dice(Player owner)
     {
@@ -30,14 +30,18 @@ public class Dice {
         this.owner = null;
     }
     /**
-     *
-     * Postcondition: Rolls the dice without a chance of jackpot
+     * Transformer.
+     * Post Condition: Rolls the dice without a chance of jackpot
      */
     public void rollEvent()
     {
         this.currentValue = new Random().nextInt(6) + 1;
     }
 
+    /**
+     * Transformer.
+     * Post Condition: rolls the dice with the intention to move the player
+     */
     public void roll()
     {
         rollEvent();
@@ -49,6 +53,12 @@ public class Dice {
             }
         }
     }
+
+    /**
+     * Accessor.
+     * Post Condition: returns the value the dice has landed in
+     * @return
+     */
     public int getCurrentValue()
     {
         return this.currentValue;

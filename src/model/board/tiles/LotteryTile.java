@@ -2,9 +2,11 @@ package model.board.tiles;
 
 import functions.DaysChecker;
 import functions.PathFinder;
+import model.board.Board;
 import model.board.Dice;
 import model.board.Tile;
 import model.player.Player;
+import view.TilePopup;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -16,18 +18,19 @@ public class LotteryTile extends Tile {
      * Constructor.
      * Postcondition: Creates and initializes the lottery tile
      */
-    public LotteryTile(int number) throws IOException {
+    public LotteryTile(int number, Board board) throws IOException {
         super(
             number,
             DaysChecker.Days.getDay(number),
-            ImageIO.read(new File(PathFinder.Images.getImage("lottery.png")))
+            ImageIO.read(new File(PathFinder.Images.getImage("lottery.png"))),
+            board
         );
     }
 
     @Override
     public void performAction(Player player) {
         Dice tempDice = new Dice();
-        Player p2 = new Player("test",500,null);
+        Player p2 = board.getPlayer2();
         player.getDice().rollEvent();
         p2.getDice().rollEvent();
         while(true)
@@ -45,5 +48,6 @@ public class LotteryTile extends Tile {
                 break;
             }
         }
+        new TilePopup(this);
     }
 }

@@ -1,35 +1,33 @@
 package view;
 
-import model.card.Card;
-import model.card.MailCard;
+import model.board.Tile;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class MailCardPopup extends JFrame {
-    JLabel description;
-    Button confirm;
+public class TilePopup extends JFrame {
     JLabel image;
-    public MailCardPopup(MailCard card)
+    JLabel description;
+    JButton confirm;
+    public TilePopup(Tile tile)
     {
         GridBagConstraints c = new GridBagConstraints();
-        this.setTitle(card.getTitle());
+//        this.setTitle(tile.getTitle());
         this.setLayout(new GridBagLayout());
-        image = new JLabel(new ImageIcon(card.getImage().getScaledInstance(70,70,Image.SCALE_SMOOTH)));
+        image = new JLabel(new ImageIcon(tile.getImage().getScaledInstance(100,100,Image.SCALE_SMOOTH)));
         c.fill = GridBagConstraints.HORIZONTAL;
         c.gridx = 0;
         c.gridy = 0;
-        c.gridheight = 2;
-        c.ipady = 2;
         this.add(image,c);
-        description = new JLabel(card.getDescription());
+        description = new JLabel("description");
         c.gridx = 1;
         c.gridy = 0;
         this.add(description,c);
-        confirm = new Button(card.getConfirmText());
-        c.gridy = 2;
+        confirm = new JButton("Εντάξει");
+        c.gridx = 1;
+        c.gridy = 1;
         this.add(confirm,c);
         confirm.addActionListener(
                 new ActionListener() {
@@ -43,5 +41,4 @@ public class MailCardPopup extends JFrame {
         this.setVisible(true);
         this.setSize(400,400);
     }
-
 }

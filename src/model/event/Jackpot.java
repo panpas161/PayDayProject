@@ -21,9 +21,14 @@ public class Jackpot extends Event{
             "jackpot",
                 "Jackpot",
                 "Κερδισες κτλ",
-                ImageIO.read(new File(PathFinder.Images.getImage("jackpot.png")))
+                ImageIO.read(new File(PathFinder.Images.getImage("jackpot.png"))),
+                1
         );
         this.value = 0;
+        String[] optionStrings = {
+                "Εντάξει"
+        };
+        setOptionStrings(optionStrings);
     }
     /**
      * Accessor.

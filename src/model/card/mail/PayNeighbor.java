@@ -2,21 +2,25 @@ package model.card.mail;
 
 import functions.MessageGenerator;
 
+import functions.PathFinder;
 import model.board.Board;
 import model.card.MailCard;
 import model.player.Player;
 import view.MailCardPopup;
 
+import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
 public class PayNeighbor extends MailCard {
 
-    public PayNeighbor(Board board) {
+    public PayNeighbor(Board board) throws IOException {
         super(
                 "Πλήρωσε τον γείτονα",
                 MessageGenerator.PayNeighbor.getDescription(),
-                null,
-                "test",
+                ImageIO.read(new File(PathFinder.Images.getImage("monitor.png"))),
+                "Πλήρωσε 60 ευρώ",
                 board
         );
     }
@@ -33,7 +37,7 @@ public class PayNeighbor extends MailCard {
         {
             rival = board.getPlayer1();
         }
-        this.getOwner().sendMoney(rival,500);
+        this.getOwner().sendMoney(rival,60);
         new MailCardPopup(this);
     }
 }

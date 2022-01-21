@@ -5,6 +5,7 @@ import functions.PathFinder;
 import model.board.Board;
 import model.board.Tile;
 import model.player.Player;
+import view.TilePopup;
 
 import javax.imageio.IIOImage;
 import javax.imageio.ImageIO;
@@ -17,22 +18,17 @@ public class RadioContestTile extends Tile {
      * Constructor.
      * Postcondition: Creates and initializes the radio contest tile
      */
-    public RadioContestTile(int number) throws IOException {
+    public RadioContestTile(int number,Board board) throws IOException {
         super(
             number,
             DaysChecker.Days.getDay(number),
-            ImageIO.read(new File(PathFinder.Images.getImage("radio.png")))
+            ImageIO.read(new File(PathFinder.Images.getImage("radio.png"))),
+            board
         );
     }
 
     @Override
     public void performAction(Player player) {
-        try {
-            board = new Board(new Player("test",125,null),new Player("test",12412,null));
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
         Player player1 = board.getPlayer1();
         Player player2 = board.getPlayer2();
         while(true)
@@ -52,6 +48,7 @@ public class RadioContestTile extends Tile {
                 break;
             }
         }
+        new TilePopup(this);
 
     }
 }

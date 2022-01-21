@@ -18,7 +18,8 @@ public class PlayerUI extends JPanel
     JPanel detailsPanel;
     JButton rollDice,viewDealCards,getLoan,endTurn;
     JPanel buttonsPanel;
-    public PlayerUI(Player player, Turn turn)
+    JLabel diceImage;
+    public PlayerUI(Player player, Turn turn,BoardView boardView)
     {
         name = new JLabel(player.getName());
         balance = new JLabel("Money: " + player.getBalance() + "Euros");
@@ -30,47 +31,65 @@ public class PlayerUI extends JPanel
         getLoan = new JButton("Get Loan");
         endTurn = new JButton("End Turn");
         buttonsPanel = new JPanel();
+
+        GridBagConstraints c = new GridBagConstraints();
+        detailsPanel.setLayout(new GridBagLayout());
+
         //name
         name.setHorizontalAlignment(JLabel.CENTER);
-        detailsPanel.add(name);
+        c.fill = GridBagConstraints.VERTICAL;
+        c.insets = new Insets(10,0,0,0);
+        c.gridx = 0;
+        c.gridy = 0;
+        detailsPanel.add(name,c);
 
         //balance
         balance.setHorizontalAlignment(JLabel.CENTER);
-        detailsPanel.add(balance);
+        c.gridy = 1;
+        detailsPanel.add(balance,c);
 
         //loan
         loan.setHorizontalAlignment(JLabel.CENTER);
-        detailsPanel.add(loan);
+        c.gridy = 2;
+        detailsPanel.add(loan,c);
 
         //bills
         bills.setHorizontalAlignment(JLabel.CENTER);
-        detailsPanel.add(bills);
+        c.gridy = 3;
+        detailsPanel.add(bills,c);
 
         //dice image
-        try{
-            detailsPanel.add(getDiceImage(player));
-        } catch (IOException e) {
+        try
+        {
+            c.gridy = 4;
+            diceImage = new JLabel(getDiceImage(player));
+            detailsPanel.add(diceImage,c);
+        }
+        catch (IOException e) {
             e.printStackTrace();
         }
 
         //details panel
-        detailsPanel.setLayout(new GridLayout(5,1));
+        if(turn.getCurrentPlayer() != player)
+        {
+            setEnabledButtons(false);
+        }
         this.add(detailsPanel);
+
         //buttons
         rollDice.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                player.getDice().roll();
                 System.out.println("Old Position: " + player.getCurrentPosition());
+                turn.rollAndMovePlayer(player);
                 try{
-                    detailsPanel.add(getDiceImage(player));
+                    diceImage.setIcon(getDiceImage(player));
                 } catch (IOException ioException) {
                     ioException.printStackTrace();
                 }
-                detailsPanel.repaint();
-                player.movePositionRight(player.getDice().getCurrentValue());
                 System.out.println("Dice Rolled: " + player.getDice().getCurrentValue());
                 System.out.println("New Position: " + player.getCurrentPosition());
+                boardView.updatePawns();
                 rollDice.setEnabled(false);
             }
         });
@@ -90,18 +109,23 @@ public class PlayerUI extends JPanel
             }
         });
         buttonsPanel.add(getLoan);
-        endTurn.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                turn.nextTurn();
-                setEnabledButtons(false);
-            }
-        });
+        this.setLayout(new GridLayout(2,1));
         buttonsPanel.add(endTurn);
         this.add(buttonsPanel);
     }
 
-    private void setEnabledButtons(boolean enabled)
+
+    public JButton getEndTurn()
+    {
+        return this.endTurn;
+    }
+
+    public void setEndTurnListener(ActionListener listener)
+    {
+        this.endTurn.addActionListener(listener);
+    }
+
+    public void setEnabledButtons(boolean enabled)
     {
         rollDice.setEnabled(enabled);
         viewDealCards.setEnabled(enabled);
@@ -109,59 +133,49 @@ public class PlayerUI extends JPanel
         endTurn.setEnabled(enabled);
     }
 
-    private JLabel getDiceImage(Player player) throws IOException
+    private ImageIcon getDiceImage(Player player) throws IOException
     {
         int currentDiceValue = player.getDice().getCurrentValue();
-        JLabel diceImage;
+        ImageIcon diceImage;
         if(currentDiceValue == 1)
         {
-            diceImage = new JLabel(
-                new ImageIcon(
+            diceImage = new ImageIcon(
                     ImageIO.read(new File(PathFinder.Images.getImage("dice-1.jpg")))
-                )
-            );
+                );
         }
         else if(currentDiceValue == 2)
         {
-            diceImage = new JLabel(
-                new ImageIcon(
+            diceImage = new ImageIcon(
                     ImageIO.read(new File(PathFinder.Images.getImage("dice-2.jpg")))
-                )
-            );
+                );
         }
         else if(currentDiceValue == 3)
         {
-            diceImage = new JLabel(
-                new ImageIcon(
+            diceImage = new ImageIcon(
                     ImageIO.read(new File(PathFinder.Images.getImage("dice-3.jpg")))
-                )
-            );
+                );
         }
         else if(currentDiceValue == 4)
         {
-            diceImage = new JLabel(
-                new ImageIcon(
+            diceImage = new ImageIcon(
                     ImageIO.read(new File(PathFinder.Images.getImage("dice-4.jpg")))
-                )
-            );
+                );
         }
         else if(currentDiceValue == 5)
         {
-            diceImage = new JLabel(
-                new ImageIcon(
+            diceImage = new ImageIcon(
                     ImageIO.read(new File(PathFinder.Images.getImage("dice-5.jpg")))
-                )
-            );
+                );
         }
         else
         {
-            diceImage = new JLabel(
-                new ImageIcon(
+            diceImage = new ImageIcon(
                     ImageIO.read(new File(PathFinder.Images.getImage("dice-6.jpg")))
-                )
-            );
+                );
         }
-        return diceImage;
+        return new ImageIcon(
+                            diceImage.getImage().getScaledInstance(55,55,Image.SCALE_SMOOTH)
+                    );
     }
 }
 

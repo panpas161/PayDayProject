@@ -1,6 +1,7 @@
 package model.board.tiles;
 
 import functions.PathFinder;
+import model.board.Board;
 import model.board.Tile;
 import model.player.Player;
 
@@ -9,11 +10,12 @@ import java.io.File;
 import java.io.IOException;
 
 public class StartTile extends Tile {
-    public StartTile() throws IOException {
+    public StartTile(Board board) throws IOException {
         super(
                 1,
                 "Start",
-                ImageIO.read(new File(PathFinder.Images.getImage("start.png")))
+                ImageIO.read(new File(PathFinder.Images.getImage("start.png"))),
+                board
         );
     }
     @Override
@@ -23,6 +25,6 @@ public class StartTile extends Tile {
     }
     @Override
     public void performAction(Player player){
-
+        ;
     }
 }

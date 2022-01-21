@@ -6,6 +6,7 @@ import model.board.Board;
 import model.board.Tile;
 import model.player.Player;
 import controller.Controller;
+import view.TilePopup;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -13,11 +14,12 @@ import java.io.File;
 import java.io.IOException;
 
 public class FamilyCasinoNightTile extends Tile {
-    public FamilyCasinoNightTile(int number) throws IOException {
+    public FamilyCasinoNightTile(int number,Board board) throws IOException {
         super(
             number,
             DaysChecker.Days.getDay(number),
-            ImageIO.read(new File(PathFinder.Images.getImage("casino.png")))
+            ImageIO.read(new File(PathFinder.Images.getImage("casino.png"))),
+            board
         );
     }
 
@@ -32,5 +34,6 @@ public class FamilyCasinoNightTile extends Tile {
             player.removeCash(500);
             Controller.jackpot.addValue(500);
         }
+        new TilePopup(this);
     }
 }

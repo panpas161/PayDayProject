@@ -2,6 +2,7 @@ package model.event;
 
 import functions.PathFinder;
 import model.player.Player;
+import view.EventPopup;
 
 import javax.imageio.ImageIO;
 import java.io.File;
@@ -14,7 +15,8 @@ public class SundayFootballDay extends Event{
             "sunday_football_day",
                 "Ποδοσφαιρικός Αγώνας Κυριακής",
                 "",
-                ImageIO.read(new File(PathFinder.Images.getImage("")))
+                ImageIO.read(new File(PathFinder.Images.getImage("Barcelona_Real.jpg"))),
+                1
         );
         performAction();
     }
@@ -22,6 +24,6 @@ public class SundayFootballDay extends Event{
     @Override
     public void performAction()
     {
-
+        new EventPopup(this);
     }
 }

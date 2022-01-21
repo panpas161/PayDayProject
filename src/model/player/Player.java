@@ -43,6 +43,8 @@ public class Player {
         this.currentPosition = 0;
         this.currentMonth = 0;
         this.pawn = pawn;
+        for(int i=0;i<20;i++)
+        this.dealCards.add(new DealCard());
     }
     /**
      * Accessor.
@@ -81,6 +83,12 @@ public class Player {
         this.balance = balance;
     }
 
+    /**
+     * Transformer.
+     * Post Condition: sends money to another player
+     * @param receiver: the player that gets the money
+     * @param amount: the amount to be sent
+     */
     public void sendMoney(Player receiver,float amount)
     {
         if(this.balance >= amount)
@@ -108,7 +116,11 @@ public class Player {
         this.dealCards.remove(dealCard);
     }
 
-
+    /**
+     * Accessor.
+     * Post Condition: returns the deal cards
+     * @return
+     */
     public ArrayList<DealCard> getDealCards() {
         return this.dealCards;
     }
@@ -228,32 +240,68 @@ public class Player {
         this.balance -= cash;
     }
 
+    /** Accessor.
+     * Post Condition: returns the dice instance
+     * @return
+     */
     public Dice getDice()
     {
         return this.dice;
     }
+
+    /** Accessor.
+     * Post Condition: returns the player's current position
+     * @return
+     */
     public int getCurrentPosition()
     {
         return this.currentPosition;
     }
-    public void setCurrentPosition(int position) {
+
+    /**
+     * Transformer
+     * Post Condition: alters the current position variable
+     * @param position
+     */
+    public void setCurrentPosition(int position)
+    {
         this.currentPosition = position;
         DaysChecker.Days.checkDayEvent(currentPosition);
     }
+
+    /** Transformer.
+     * Post Condition: moves player right to a certain position
+     * @param position
+     */
     public void movePositionRight(int position)
     {
         this.currentPosition += position;
     }
 
+    /**
+     * Accessor.
+     * Post Condition: gets the month the player is currently in
+     * @return
+     */
     public int getCurrentMonth()
     {
         return this.currentMonth;
     }
 
+    /** Transformer.
+     * Post Condition: sets the month that the player is currently in
+     * @param month: the new value of the month
+     */
     public void setCurrentMonth(int month)
     {
         this.currentMonth = month;
     }
+
+    /**
+     * Accessor.
+     * Post Condition: returns the pawn image of the player
+     * @return
+     */
     public BufferedImage getPawnImage()
     {
         return this.pawn;

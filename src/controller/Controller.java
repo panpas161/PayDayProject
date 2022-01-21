@@ -38,11 +38,13 @@ public class Controller {
     public Controller() throws IOException {
         p1 = new Player("Player1",3500,Config.Images.PawnPlayerOne());
         p2 = new Player("Player2",3500, Config.Images.PawnPlayerTwo());
+        board = new Board(p1,p2);
         mailCardDeck = new MailCardDeck(board);
         dealCardDeck = new DealCardDeck();
-        board = new Board(p1,p2);
+        board.setMailCardDeck(mailCardDeck);
+        board.setDealCardDeck(dealCardDeck);
         this.months = Config.Values.gameMonths();
-        turn = new Turn(p1,p2);
+        turn = new Turn(p1,p2,board);
     }
     public Player getPlayer1()
     {
@@ -57,11 +59,19 @@ public class Controller {
     {
         return this.turn;
     }
-    public void drawCard(Player player,int times)
+
+    public DealCardDeck getDealCardDeck()
     {
-        for(int i=0;i<times;i++)
-            dealCardDeck.draw(player);
+        return this.dealCardDeck;
     }
 
+    public MailCardDeck getMailCardDeck()
+    {
+        return this.mailCardDeck;
+    }
 
+    public Board getBoard()
+    {
+        return this.board;
+    }
 }

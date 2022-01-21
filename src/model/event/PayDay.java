@@ -10,7 +10,7 @@ public class PayDay extends Event{
     Player player;
     public PayDay(Player player)
     {
-        super(3, "payday", "PayDay", "", null);
+        super(3, "payday", "PayDay", "", null,1);
         this.player = player;
         performAction();
     }

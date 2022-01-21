@@ -31,8 +31,14 @@ public class DealCardDeck {
     public void draw(Player player)
     {
         int lastIndex = this.dealCards.size()-1;
+        if(lastIndex == -1)
+        {
+            lastIndex = 0;
+        }
+        System.out.println(lastIndex);
+        System.out.println(this.dealCards.get(lastIndex));
         player.addDealCard(this.dealCards.get(lastIndex));
         this.rejectedDealCards.add(this.dealCards.get(lastIndex));
-        this.dealCards.remove(this.dealCards.get(lastIndex));
+        this.dealCards.remove(lastIndex);
     }
 }

@@ -1,9 +1,14 @@
 package view;
 import controller.Controller;
+import functions.MessageGenerator;
 import model.board.Board;
+import model.card.mail.Bill;
+import model.player.Player;
 import view.BoardView;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.IOException;
 
 import functions.PathFinder.Images;
@@ -11,51 +16,104 @@ import functions.PathFinder.Images;
 public class GraphicUI extends JFrame {
     Controller controller;
     JLabel logo;
-    JPanel boardPanel;
-    JPanel infoBox;
-    JPanel playerOnePanel;
-    JPanel playerTwoPanel;
+    BoardView boardPanel;
+    InfoBoxView infoBox;
+    PlayerUI playerOnePanel;
+    PlayerUI playerTwoPanel;
     JPanel left,right;
-    JLabel playerOnePawn;
-    JLabel playerTwoPawn;
-    public GraphicUI(Board board) throws IOException {
+    JPanel deckBox;
+    Board board;
+    final int WIDTH = 1000;
+    final int HEIGHT = 800;
+    public GraphicUI() throws IOException {
         controller = new Controller();
+        board = controller.getBoard();
         left = new JPanel();
+        left.setLayout(new GridBagLayout());
+
         right = new JPanel();
+        right.setLayout(new GridBagLayout());
+
+        GridBagConstraints c = new GridBagConstraints();
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setLayout(new GridLayout(2,2));
+        this.setLayout(new GridBagLayout());
+
         //logo
-        logo = new JLabel(new ImageIcon(Images.getImage("talos.jpg")));
-        left.add(logo);
+        ImageIcon logoIcon = new ImageIcon(Images.getImage("logo.png"));
+        logo = new JLabel(new ImageIcon(logoIcon.getImage().getScaledInstance(WIDTH/2,200,Image.SCALE_SMOOTH)));
+        c.gridx = 0;
+        c.gridy = 0;
+        left.add(logo,c);
 
         //board
-        boardPanel = new BoardView(board);
-//        playerOnePawn = new JLabel(new ImageIcon(controller.getPlayer1().getPawnImage()));
-//        boardPanel.add(playerOnePawn);
-        left.add(boardPanel);
+        c.gridx = 0;
+        c.gridy = 1;
+        boardPanel = new BoardView(board, board.getPlayer1(), board.getPlayer2());
+        left.add(boardPanel,c);
+        playerOnePanel = new PlayerUI(controller.getPlayer1(), controller.getTurn(),boardPanel);
 
         //player1 panel
-        playerOnePanel = new PlayerUI(controller.getPlayer1(), controller.getTurn());
-        playerOnePanel.setLayout(new GridLayout(2,1));
-        right.add(playerOnePanel);
+        c.fill = 3;
+        c.gridx = 0;
+        c.gridy = 0;
+        right.add(playerOnePanel,c);
 
         //info box
         infoBox = new InfoBoxView(controller.getTurn().getCurrentPlayer());
-        right.add(infoBox);
+        c.gridy = 1;
+        right.add(infoBox,c);
+
+        //Decks
+        deckBox = new DecksView(controller.getDealCardDeck(),controller.getMailCardDeck());
+        c.gridy = 2;
+        right.add(deckBox,c);
 
         //player2 panel
-        playerTwoPanel = new PlayerUI(controller.getPlayer2(), controller.getTurn());
-        playerTwoPanel.setLayout(new GridLayout(2,1));
-        right.add(playerTwoPanel);
+        playerTwoPanel = new PlayerUI(controller.getPlayer2(), controller.getTurn(), boardPanel);
+        c.gridy = 3;
+        right.add(playerTwoPanel,c);
+
+        //listeners
+        playerOnePanel.setEndTurnListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(!playerTwoPanel.getEndTurn().isEnabled())
+                {
+                    controller.getTurn().nextTurn();
+                    playerTwoPanel.setEnabledButtons(true);
+                    playerOnePanel.setEnabledButtons(false);
+                    infoBox.setCurrentPlayer(board.getPlayer2());
+                }
+            }
+        });
+
+        playerTwoPanel.setEndTurnListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(!playerOnePanel.getEndTurn().isEnabled())
+                {
+                    controller.getTurn().nextTurn();
+                    playerOnePanel.setEnabledButtons(true);
+                    playerTwoPanel.setEnabledButtons(false);
+                    infoBox.setCurrentPlayer(board.getPlayer1());
+                }
+            }
+        });
 
         //left panel
-        left.setLayout(new GridBagLayout());
-        GridBagConstraints constraints = new GridBagConstraints();
-        this.add(left,constraints);
+
+//        left.setLayout(new GridBagLayout());
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.gridy = 0;
+        c.gridx = 0;
+        c.weightx = 1;
+        this.add(left,c);
 
         //right panel
-        right.setLayout(new GridLayout(3,1));
-        this.add(right);
+        c.gridwidth = 2;
+        c.gridx = 1;
+        c.weightx = 0;
+        this.add(right,c);
 
 
 
@@ -64,6 +122,7 @@ public class GraphicUI extends JFrame {
         this.setVisible(true);
     }
     public static void main(String[] args) throws IOException {
-        new GraphicUI(new Board());
+//        new MailCardPopup(new Bill(new Board(new Player("test",215231,null),new Player("test",125125,null))));
+        new GraphicUI();
     }
 }

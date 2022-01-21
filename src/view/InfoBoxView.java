@@ -26,11 +26,17 @@ public class InfoBoxView extends JPanel {
         this.add(currentAction);
         setCurrentPlayer(player);
     }
+
     public void setCurrentPlayer(Player player)
     {
         this.currentPlayer = player;
         this.monthsLeft.setText(Config.Values.gameMonths() - player.getCurrentMonth() + " Months left");
         this.currentTurn.setText("Turn: " + player.getName());
         this.currentAction.setText("--> ");
+    }
+
+    public void updateInfoBox()
+    {
+        setCurrentPlayer(currentPlayer);
     }
 }
