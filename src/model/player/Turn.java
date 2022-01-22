@@ -1,9 +1,10 @@
 package model.player;
 
 import controller.Config;
+import controller.Controller;
 import model.board.Board;
+import model.event.Jackpot;
 import model.event.PlayerWon;
-import view.PayLoansPopup;
 
 import java.util.ArrayList;
 
@@ -36,6 +37,11 @@ public class Turn {
      */
     public void nextTurn()
     {
+        if(currentPlayer.getDice().getCurrentValue() == 6)
+        {
+            currentPlayer.addCash(Controller.jackpot.getValue());
+            Controller.jackpot.performAction();
+        }
         if(turnNumber == 1)
         {
             currentPlayer = this.p1;
@@ -60,6 +66,14 @@ public class Turn {
         board.movePlayerToPositionRight(player,player.getDice().getCurrentValue());
     }
 
+    public boolean isPlayerFinished(Player player)
+    {
+        if(player.getCurrentMonth() == Config.Values.gameMonths())
+        {
+            return true;
+        }
+        return false;
+    }
     /**
      * Transformer.
      * Post Condition: checks if a player won the game.

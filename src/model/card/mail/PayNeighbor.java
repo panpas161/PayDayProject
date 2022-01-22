@@ -12,6 +12,7 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.Random;
 
 public class PayNeighbor extends MailCard {
 
@@ -19,10 +20,12 @@ public class PayNeighbor extends MailCard {
         super(
                 "Πλήρωσε τον γείτονα",
                 MessageGenerator.PayNeighbor.getDescription(),
-                ImageIO.read(new File(PathFinder.Images.getImage("monitor.png"))),
-                "Πλήρωσε 60 ευρώ",
+                MessageGenerator.PayNeighbor.getImage(),
+                MessageGenerator.PayNeighbor.getConfirmText(),
+                MessageGenerator.PayNeighbor.getValue(),
                 board
         );
+        MessageGenerator.PayNeighbor.setRandomValue(new Random().nextInt(MessageGenerator.PayNeighbor.getTotalCards()));
     }
 
     @Override

@@ -15,7 +15,7 @@ public class ThursdayRiseValueCrypto extends Event{
                 "Crypto Thursday",
                 "Ποντάρισμα σε κρυπτονομίσματα",
                 ImageIO.read(new File(PathFinder.Images.getImage("crypto.jpg"))),
-                1
+                2
         );
         performAction();
         String[] optionStrings = {

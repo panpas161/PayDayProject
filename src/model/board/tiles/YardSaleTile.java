@@ -15,6 +15,8 @@ import java.io.IOException;
 public class YardSaleTile extends Tile {
     public YardSaleTile(int number, Board board) throws IOException {
         super(
+            "Yard Sale",
+            "Πληρώνεις τη τράπεζα 100 * τον αριθμό που έφερες με το ζάρι σε ευρώ",
             number,
             DaysChecker.Days.getDay(number),
             ImageIO.read(new File(PathFinder.Images.getImage("yard.png"))),
@@ -24,8 +26,15 @@ public class YardSaleTile extends Tile {
 
     @Override
     public void performAction(Player player) {
+        player.getDice().rollEvent();
         player.removeCash(100*player.getDice().getCurrentValue());
-        player.addDealCard(new DealCard());
+        setDescription(
+            "<html>" +
+            getDescription() + "<br> Your dice rolled: " + player.getDice().getCurrentValue() + "<br>" +
+            "You got a deal card!" +
+            "</html>"
+        );
+        board.drawDealCard(player);
         new TilePopup(this);
     }
 }

@@ -16,6 +16,8 @@ public class PayDayTile extends Tile {
 
     public PayDayTile(int number, Board board) throws IOException {
         super(
+            "PayDay",
+            "",
             number,
             DaysChecker.Days.getDay(number),
             ImageIO.read(new File(PathFinder.Images.getImage("pay.png"))),
@@ -24,6 +26,10 @@ public class PayDayTile extends Tile {
     }
     @Override
     public void performAction(Player player) {
-        new PayDay(player);
+        try {
+            new PayDay(player);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

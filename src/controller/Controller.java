@@ -46,14 +46,6 @@ public class Controller {
         this.months = Config.Values.gameMonths();
         turn = new Turn(p1,p2,board);
     }
-    public Player getPlayer1()
-    {
-        return this.p1;
-    }
-    public Player getPlayer2()
-    {
-        return this.p2;
-    }
 
     public Turn getTurn()
     {

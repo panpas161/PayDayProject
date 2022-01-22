@@ -13,16 +13,20 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.Random;
 
 public class Charity extends MailCard {
     public Charity(Board board) throws IOException {
         super(
             "Φιλανθρωπία",
-            MessageGenerator.Charity.getDescription(5),
-            MessageGenerator.Charity.getImage(5),
-            MessageGenerator.Charity.getChoice(5),
+            MessageGenerator.Charity.getDescription(),
+            MessageGenerator.Charity.getImage(),
+            MessageGenerator.Charity.getConfirmText(),
+            MessageGenerator.Charity.getValue(),
             board
         );
+        MessageGenerator.Charity.setRandomValue(new Random().nextInt(MessageGenerator.Charity.getTotalCards()));
+
     }
 
     @Override

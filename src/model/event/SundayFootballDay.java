@@ -16,8 +16,15 @@ public class SundayFootballDay extends Event{
                 "Ποδοσφαιρικός Αγώνας Κυριακής",
                 "",
                 ImageIO.read(new File(PathFinder.Images.getImage("Barcelona_Real.jpg"))),
-                1
+                4
         );
+        String[] optionStrings = {
+                "Νίκη Μπαρτσελόνα",
+                "Ισοπαλία",
+                "Νίκη Ρεάλ",
+                "Δε θέλω να κάνω πρόβλεψη"
+        };
+        setOptionStrings(optionStrings);
         performAction();
     }
 

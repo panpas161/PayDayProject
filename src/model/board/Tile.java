@@ -15,25 +15,51 @@ public abstract class Tile{
     private int position;
     protected String day;
     private BufferedImage image;
-    private ArrayList<Player> playersPresent;
     protected Board board;
     protected Controller controller;
+    private String title;
+    private String description;
     /**
      * Constructor.
-     * Postcondition: constructs a new Tile
+     * Post Condition: constructs a new Tile
      * @param position: the tile's number(aka the date)
      * @param day: The date's string
      * @param image: The image of the tile
      */
-    public Tile(int position,String day,BufferedImage image,Board board)
+    public Tile(String title,String description,int position,String day,BufferedImage image,Board board)
+    {
+        this.title = title;
+        this.description = description;
+        this.position = position;
+        this.day = day;
+        this.image = image;
+        this.board = board;
+    }
+
+    protected Tile(int position,String day,BufferedImage image,Board board)
     {
         this.position = position;
         this.day = day;
         this.image = image;
-        this.playersPresent = new ArrayList<>();
         this.board = board;
     }
 
+    protected Tile(){};
+
+    public String getTitle()
+    {
+        return this.title;
+    }
+
+    public String getDescription()
+    {
+        return this.description;
+    }
+
+    protected void setDescription(String description)
+    {
+        this.description = description;
+    }
     /**
      * Accessor.
      * Post Condition: returns the date of the tile
@@ -69,15 +95,6 @@ public abstract class Tile{
      * Post Condition: adds a player to the tile
      * @param player: the player to be added
      */
-    public void addPlayer(Player player)
-    {
-        this.playersPresent.add(player);
-    }
-
-    public ArrayList<Player> getPlayersPresent()
-    {
-        return this.playersPresent;
-    }
 
     /**
      * Transformer.

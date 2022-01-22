@@ -20,6 +20,8 @@ public class MessageTileTwo extends Tile
      */
     public MessageTileTwo(int number, Board board) throws IOException {
         super(
+        "Message",
+        "",
             number,
             DaysChecker.Days.getDay(number),
             ImageIO.read(new File(Images.getImage("mc2.png"))),

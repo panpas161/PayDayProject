@@ -43,8 +43,6 @@ public class Player {
         this.currentPosition = 0;
         this.currentMonth = 0;
         this.pawn = pawn;
-        for(int i=0;i<20;i++)
-        this.dealCards.add(new DealCard());
     }
     /**
      * Accessor.
@@ -237,6 +235,10 @@ public class Player {
      */
     public void removeCash(float cash)
     {
+        if(cash > balance)
+        {
+            takeLoan(cash-balance);
+        }
         this.balance -= cash;
     }
 
@@ -305,5 +307,20 @@ public class Player {
     public BufferedImage getPawnImage()
     {
         return this.pawn;
+    }
+
+    @Override
+    public String toString() {
+        return "Player{" +
+                "name='" + name + '\'' +
+                ", balance=" + balance +
+                ", bills=" + bills +
+                ", loans=" + loans +
+                ", dealCards=" + dealCards +
+                ", dice=" + dice +
+                ", currentPosition=" + currentPosition +
+                ", currentMonth=" + currentMonth +
+                ", pawn=" + pawn +
+                '}';
     }
 }

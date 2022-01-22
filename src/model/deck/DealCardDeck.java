@@ -19,6 +19,10 @@ public class DealCardDeck {
     public DealCardDeck()
     {
         dealCards = new ArrayList<>();
+        for(int i=0;i<64;i++)
+        {
+            dealCards.add(new DealCard());
+        }
         rejectedDealCards = new ArrayList<>();
     }
     /**
@@ -35,8 +39,6 @@ public class DealCardDeck {
         {
             lastIndex = 0;
         }
-        System.out.println(lastIndex);
-        System.out.println(this.dealCards.get(lastIndex));
         player.addDealCard(this.dealCards.get(lastIndex));
         this.rejectedDealCards.add(this.dealCards.get(lastIndex));
         this.dealCards.remove(lastIndex);

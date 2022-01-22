@@ -79,6 +79,12 @@ public class Board {
     public void movePlayerToPosition(Player player, int position)
     {
         player.setCurrentPosition(position);
+        DaysChecker.Days.checkDayEvent(position);
+        //check if he has moved over the payday tile
+        if(player.getCurrentPosition() > position)
+        {
+            player.setCurrentMonth(player.getCurrentMonth()+1);
+        }
         this.tiles[position].performAction(player);
     }
 
@@ -93,12 +99,16 @@ public class Board {
         player.movePositionRight(position);
         if(player.getCurrentPosition() > 31)
         {
-            new PayDay(player);
+            player.setCurrentPosition(player.getCurrentPosition()-31);
+            player.setCurrentMonth(player.getCurrentMonth() - 1);
+            try {
+                new PayDay(player);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
         DaysChecker.Days.checkDayEvent(position);
-        this.tiles[player.getCurrentPosition()].addPlayer(player);
         this.tiles[player.getCurrentPosition()].performAction(player);
-//        System.out.println(this.tiles[player.getCurrentPosition()].getPlayersPresent());
     }
 
     /**
@@ -149,14 +159,6 @@ public class Board {
         return this.p2;
     }
 
-    public void adjustPlayersToTiles()
-    {
-        int playerOnePosition = p1.getCurrentPosition();
-        int playerTwoPosition = p2.getCurrentPosition();
-        tiles[playerOnePosition].addPlayer(p1);
-        tiles[playerTwoPosition].addPlayer(p2);
-    }
-
     /**
      * Transformer.
      * Post Condition: adds a deal card deck to the board
@@ -195,5 +197,15 @@ public class Board {
     public MailCardDeck getMailCardDeck()
     {
         return this.mailCardDeck;
+    }
+
+    /**
+     * Transformer.
+     * Post Condition: draws a deal card from the deck.
+     * @param player: the player that draws the card
+     */
+    public void drawDealCard(Player player)
+    {
+        this.dealCardDeck.draw(player);
     }
 }

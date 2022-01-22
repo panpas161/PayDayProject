@@ -57,11 +57,4 @@ public class DaysChecker {
             }
         }
     }
-    public static class DayLogos
-    {
-        public static String getImageDayPath(int number)
-        {
-            return "";
-        }
-    }
 }

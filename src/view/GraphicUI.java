@@ -21,7 +21,6 @@ public class GraphicUI extends JFrame {
     PlayerUI playerOnePanel;
     PlayerUI playerTwoPanel;
     JPanel left,right;
-    JPanel deckBox;
     Board board;
     final int WIDTH = 1000;
     final int HEIGHT = 800;
@@ -50,7 +49,7 @@ public class GraphicUI extends JFrame {
         c.gridy = 1;
         boardPanel = new BoardView(board, board.getPlayer1(), board.getPlayer2());
         left.add(boardPanel,c);
-        playerOnePanel = new PlayerUI(controller.getPlayer1(), controller.getTurn(),boardPanel);
+        playerOnePanel = new PlayerUI(controller.getBoard().getPlayer1(), controller.getTurn());
 
         //player1 panel
         c.fill = 3;
@@ -60,16 +59,12 @@ public class GraphicUI extends JFrame {
 
         //info box
         infoBox = new InfoBoxView(controller.getTurn().getCurrentPlayer());
+        boardPanel.addInfoBoxView(infoBox);
         c.gridy = 1;
         right.add(infoBox,c);
 
-        //Decks
-        deckBox = new DecksView(controller.getDealCardDeck(),controller.getMailCardDeck());
-        c.gridy = 2;
-        right.add(deckBox,c);
-
         //player2 panel
-        playerTwoPanel = new PlayerUI(controller.getPlayer2(), controller.getTurn(), boardPanel);
+        playerTwoPanel = new PlayerUI(controller.getBoard().getPlayer2(), controller.getTurn());
         c.gridy = 3;
         right.add(playerTwoPanel,c);
 
@@ -81,7 +76,9 @@ public class GraphicUI extends JFrame {
                 {
                     controller.getTurn().nextTurn();
                     playerTwoPanel.setEnabledButtons(true);
+                    playerTwoPanel.updatePlayerInfo();
                     playerOnePanel.setEnabledButtons(false);
+                    playerOnePanel.updatePlayerInfo();
                     infoBox.setCurrentPlayer(board.getPlayer2());
                 }
             }
@@ -114,7 +111,6 @@ public class GraphicUI extends JFrame {
         c.gridx = 1;
         c.weightx = 0;
         this.add(right,c);
-
 
 
         this.setLayout(new GridLayout(1,2));

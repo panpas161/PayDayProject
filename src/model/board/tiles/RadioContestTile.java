@@ -20,6 +20,8 @@ public class RadioContestTile extends Tile {
      */
     public RadioContestTile(int number,Board board) throws IOException {
         super(
+            "Radio Contest",
+            "Η τράπεζα προσφέρει 1000 ευρώ στον παίκτη που θα φέρει τον μεγαλύτερο αριθμό",
             number,
             DaysChecker.Days.getDay(number),
             ImageIO.read(new File(PathFinder.Images.getImage("radio.png"))),
@@ -40,15 +42,33 @@ public class RadioContestTile extends Tile {
                 if(player1.getDice().getCurrentValue() > player2.getDice().getCurrentValue())
                 {
                     player1.addCash(1000);
+                    setDescription(
+                            "<html>" +
+                            getDescription() +
+                            "<br>Result: <br>" +
+                            player1.getName() + " Rolled " + player1.getDice().getCurrentValue() + "<br>" +
+                            player2.getName() + " Rolled " + player2.getDice().getCurrentValue() + "<br>" +
+                            player1.getName() + " Won!" +
+                            "</html>"
+
+                    );
                 }
                 else
                 {
                     player2.addCash(1000);
+                    setDescription(
+                        "<html>" +
+                        getDescription() +
+                        "<br>Result: <br>" +
+                        player1.getName() + " Rolled " + player1.getDice().getCurrentValue() + "<br>" +
+                        player2.getName() + " Rolled " + player2.getDice().getCurrentValue() + "<br>" +
+                        player2.getName() + " Won!" +
+                        "</html>"
+                    );
                 }
                 break;
             }
         }
         new TilePopup(this);
-
     }
 }

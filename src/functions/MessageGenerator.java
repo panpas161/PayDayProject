@@ -11,6 +11,19 @@ import java.util.Random;
 public class MessageGenerator {
     public static class Advertisement
     {
+        private static int totalCards = 8;
+        public static int randomValue = new Random().nextInt(totalCards);
+
+        public static void setRandomValue(int value)
+        {
+            randomValue = value;
+        }
+
+        public static int getTotalCards()
+        {
+            return totalCards;
+        }
+
         public static String getDescription()
         {
             String[] descriptions = {
@@ -23,16 +36,75 @@ public class MessageGenerator {
                 "Μοιράσου μία Coca Cola με τον συμφοιτοιτή σου",
                 "Για να είναι η μέρα σου ωραία Oreo!"
             };
-            return descriptions[0]; // we'll return a random one on phase B
+            return descriptions[randomValue];
+        }
+        public static int getValue()
+        {
+            int[] values = {
+                    20,
+                    20,
+                    20,
+                    20,
+                    20,
+                    20,
+                    20,
+                    20
+            };
+            return values[randomValue];
+        }
+        public static BufferedImage getImage()
+        {
+            String[] images = {
+                "tiktok.png",
+                "netflix.jpg",
+                "theios.jpg",
+                "amstel.jpg",
+                "skip.png",
+                "enteka.jpg",
+                "cola.png",
+                "oreo.jpeg\n"
+            };
+            try {
+                return ImageIO.read(new File(PathFinder.Images.getImage(images[randomValue])));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+        public static String getConfirmText()
+        {
+            String[] confirmTexts = {
+                "Βαριέσαι στα διαλείμματα δες λιγο ΤικΤοκ",
+                "Δες Netflix άσε την σχολή",
+                "Άσε το Θείο Διάβασε Java",
+                "Java... Ποια Amstel?",
+                "29 κατασκευαστές πλυντηρίων συνιστούν Skip",
+                "11888 Σούπερ Αριθμός",
+                "Μοιράσου μία Coca Cola με τον συμφοιτοιτή σου ",
+                "Για να είναι η μέρα σου ωραία Oreo!\n"
+            };
+            return confirmTexts[randomValue];
         }
     }
     public static class Bill
     {
-        public static String getChoice()
+        private static int totalCards = 5;
+        public static int randomValue = new Random().nextInt(totalCards);
+
+        public static void setRandomValue(int value)
+        {
+            randomValue = value;
+        }
+
+        public static int getTotalCards()
+        {
+            return totalCards;
+        }
+        public static String getConfirmText()
         {
             return "Κράτα τον λογαριασμό";
         }
-        public static String getDescription(int randomValue)
+        public static String getDescription()
         {
             String[] descriptions = {
                 "Πληρωμή 500 Ευρώ για την πρώτη δόση του ΕΝΦΙΑ",
@@ -46,7 +118,7 @@ public class MessageGenerator {
             };
             return descriptions[randomValue];
         }
-        public static int getValue(int randomValue)
+        public static int getValue()
         {
             int[] values = {
                     500,
@@ -60,7 +132,7 @@ public class MessageGenerator {
             };
             return values[randomValue];
         }
-        public static BufferedImage getImage(int randomValue)
+        public static BufferedImage getImage()
         {
             String[] images = {
                     "enfia.jpg",
@@ -82,7 +154,19 @@ public class MessageGenerator {
     }
     public static class Charity
     {
-        public static int getValue(int randomValue)
+        private static int totalCards = 8;
+        public static int randomValue = new Random().nextInt(totalCards);
+
+        public static void setRandomValue(int value)
+        {
+            randomValue = value;
+        }
+
+        public static int getTotalCards()
+        {
+            return totalCards;
+        }
+        public static int getValue()
         {
             int[] values = {
                 50,
@@ -96,21 +180,21 @@ public class MessageGenerator {
             };
             return values[randomValue];
         }
-        public static String getChoice(int randomValue)
+        public static String getConfirmText()
         {
-            String[] choices = {
-                " Πλήρωσε 50 Ευρώ στο Jackpot",
-                " Πλήρωσε 100 Ευρώ στο Jackpot",
-                " Πλήρωσε 200 Ευρώ στο Jackpot",
-                " Πλήρωσε 300 Ευρώ στο Jackpot",
-                " Πλήρωσε 150 Ευρώ στο Jackpot",
-                " Πλήρωσε 350 Ευρώ στο Jackpot",
-                " Πλήρωσε 250 Ευρώ στο Jackpot",
-                " Πλήρωσε 250 Ευρώ στο Jackpot"
+            String[] confirmTexts = {
+                "Πλήρωσε 50 Ευρώ στο Jackpot",
+                "Πλήρωσε 100 Ευρώ στο Jackpot",
+                "Πλήρωσε 200 Ευρώ στο Jackpot",
+                "Πλήρωσε 300 Ευρώ στο Jackpot",
+                "Πλήρωσε 150 Ευρώ στο Jackpot",
+                "Πλήρωσε 350 Ευρώ στο Jackpot",
+                "Πλήρωσε 250 Ευρώ στο Jackpot",
+                "Πλήρωσε 250 Ευρώ στο Jackpot"
             };
-            return choices[randomValue];
+            return confirmTexts[randomValue];
         }
-        public static String getDescription(int randomValue)
+        public static String getDescription()
         {
             String[] descriptions = {
                 "Διάσωση χελώνας Καρέτα-Καρέτα",
@@ -124,7 +208,7 @@ public class MessageGenerator {
             };
             return descriptions[randomValue];
         }
-        public static BufferedImage getImage(int randomValue)
+        public static BufferedImage getImage()
         {
             String[] images = {
                 "caretta.jpg",
@@ -160,52 +244,186 @@ public class MessageGenerator {
             }
             return null;
         }
-        public static String getChoice()
+        public static String getConfirmText()
         {
             return "Εντάξει";
         }
     }
     public static class PayNeighbor
     {
+        private static int totalCards = 8;
+        public static int randomValue = new Random().nextInt(totalCards);
+
+        public static void setRandomValue(int value)
+        {
+            randomValue = value;
+        }
+
+        public static int getTotalCards()
+        {
+            return totalCards;
+        }
         public static String getDescription()
         {
             String[] descriptions = {
-                    "Αγορά μεταχειρισμένης οθόνης από το γείτονα\n" +
-                    "Ο γείτονας παίρνει πτυχίο\n" +
-                    "Δώσε τα κοινόχρηστα στο γείτονα\n" +
-                    "Ιδιαίτερα μαθήματα κιθάρας από το γείτονα\n" +
-                    "Δώσε πίσω τα δανεικά που σου έδωσε ο γείτονας για να αγοράσεις Laptop\n" +
-                    "Ο γείτονας κράτησε τον σκύλο σου στις διακοπές\n" +
-                    "Ο γείτονας πουλάει λαχνούς\n" +
-                    "Ο γείτονας παντρεύεται\n"
+                    "Αγορά μεταχειρισμένης οθόνης από το γείτονα",
+                    "Ο γείτονας παίρνει πτυχίο",
+                    "Δώσε τα κοινόχρηστα στο γείτονα",
+                    "Ιδιαίτερα μαθήματα κιθάρας από το γείτονα",
+                    "Δώσε πίσω τα δανεικά που σου έδωσε ο γείτονας για να αγοράσεις Laptop",
+                    "Ο γείτονας κράτησε τον σκύλο σου στις διακοπές",
+                    "Ο γείτονας πουλάει λαχνούς",
+                    "Ο γείτονας παντρεύεται"
             };
-            return descriptions[0];
+            return descriptions[randomValue];
+        }
+        public static String getConfirmText()
+        {
+            String[] confirmTexts = {
+                "Πλήρωσε 60 Ευρώ στον αντίπαλο",
+                "Πλήρωσε 100 Ευρώ στον αντίπαλο",
+                "Πλήρωσε 67 Ευρώ στον αντίπαλο",
+                "Πλήρωσε 200 Ευρώ στον αντίπαλο",
+                "Πλήρωσε 1250 Ευρώ στον αντίπαλο",
+                "Πλήρωσε 300 Ευρώ στον αντίπαλο",
+                "Πλήρωσε 100 Ευρώ στον αντίπαλο",
+                "Πλήρωσε 400 Ευρώ στον αντίπαλο\n"
+            };
+            return confirmTexts[randomValue];
+        }
+        public static int getValue()
+        {
+            int[] values = {
+                60,
+                100,
+                67,
+                200,
+                1250,
+                300,
+                100,
+                400
+            };
+            return values[randomValue];
+        }
+        public static BufferedImage getImage()
+        {
+            String[] images = {
+                    "monitor.png",
+                    "ptyxio.jpg",
+                    "koinoxrista.jpg",
+                    "guitar.jpg",
+                    "laptop.jpg",
+                    "dog.jpg",
+                    "laxnoi.jpg",
+                    "gamos.jpg"
+            };
+            try {
+                return ImageIO.read(new File(PathFinder.Images.getImage(images[randomValue])));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return null;
         }
     }
     public static class TakeFromNeighbor
     {
+        private static int totalCards = 8;
+        public static int randomValue = new Random().nextInt(totalCards);
+
+        public static void setRandomValue(int value)
+        {
+            randomValue = value;
+        }
+
+        public static int getTotalCards()
+        {
+            return totalCards;
+        }
         public static String getDescription()
         {
             String[] descriptions = {
-                    "Format στον υπολογιστή του γείτονα\n" +
-                    "Κράτηση της γάτας του γείτονα λόγω διακοπών\n" +
-                    "Πήγες το αυτοκίνητο του γείτονα στο ΚΤΕΟ\n" +
-                    "Ιδιαίτερα μαθήματα αγγλικών στο γείτονα\n" +
-                    "Πάρε πίσω τα δανεικά που έδωσες στο γείτονα για να αγοράσει μηχανή\n" +
-                    "Πώληση μεταχειρισμένου Playstasion 3 στο Γείτονα\n" +
-                    "Πάρε τα χρήματα για τη δόση του πετρελαίου από το γείτονα\n" +
-                    "Ο γείτονας σου δίνει χρήματα για τη γιορτή σου\n"
+                    "Format στον υπολογιστή του γείτονα",
+                    "Κράτηση της γάτας του γείτονα λόγω διακοπών",
+                    "Πήγες το αυτοκίνητο του γείτονα στο ΚΤΕΟ",
+                    "Ιδιαίτερα μαθήματα αγγλικών στο γείτονα",
+                    "Πάρε πίσω τα δανεικά που έδωσες στο γείτονα για να αγοράσει μηχανή",
+                    "Πώληση μεταχειρισμένου Playstasion 3 στο Γείτονα",
+                    "Πάρε τα χρήματα για τη δόση του πετρελαίου από το γείτονα",
+                    "Ο γείτονας σου δίνει χρήματα για τη γιορτή σου"
             };
-            return descriptions[0];
+            return descriptions[randomValue];
+        }
+
+        public static String getConfirmText()
+        {
+            String[] confirmTexts = {
+                "Πάρε 50 Ευρώ από τον αντίπαλο",
+                "Πάρε 150 Ευρώ από τον αντίπαλο",
+                "Πάρε 100 Ευρώ από τον αντίπαλο",
+                "Πάρε 380 Ευρώ από τον αντίπαλο",
+                "Πάρε 1300 Ευρώ από τον αντίπαλο",
+                "Πάρε 120 Ευρώ από τον αντίπαλο",
+                "Πάρε 350 Ευρώ από τον αντίπαλο",
+                "Πάρε 100 Ευρώ από τον αντίπαλο\n"
+            };
+            return confirmTexts[randomValue];
+        }
+        public static int getValue()
+        {
+            int[] values = {
+                50,
+                150,
+                100,
+                380,
+                1300,
+                120,
+                350,
+                100
+
+            };
+            return values[randomValue];
+        }
+        public static BufferedImage getImage()
+        {
+            String[] images = {
+                "format.jpeg",
+                "cat.jpg",
+                "kteo.jpg",
+                "english.jpg",
+                "honda.jpg",
+                "ps3.jpg",
+                "kalorifer.jpg",
+                "dwro.jpg\n"
+            };
+            try {
+                return ImageIO.read(new File(PathFinder.Images.getImage(images[randomValue])));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return null;
         }
     }
     public static class DealCard
     {
+        private static final int totalCards = 20;
+        public static int randomValue = new Random().nextInt(totalCards);
+
+        public static void setRandomValue(int value)
+        {
+            randomValue = value;
+        }
+
+        public static int getTotalCards()
+        {
+            return totalCards;
+        }
+
         public static String getTitle()
         {
             return "Συμφωνία";
         }
-        public static int getCost(int randomValue)
+
+        public static int getCost()
         {
             int[] costs = {
                 7000,
@@ -232,7 +450,7 @@ public class MessageGenerator {
             return costs[randomValue];
         }
 
-        public static int getValue(int randomValue)
+        public static int getValue()
         {
             int[] values = {
                 10000,
@@ -259,7 +477,7 @@ public class MessageGenerator {
             return values[randomValue];
         }
 
-        public static String getDescription(int randomValue)
+        public static String getDescription()
         {
             String[] descriptions = {
                     "Αγορά Αυτοκινήτου σε τιμή ευκαιρίας",
@@ -285,7 +503,7 @@ public class MessageGenerator {
             };
             return descriptions[randomValue];
         }
-        public static BufferedImage getImage(int randomValue)
+        public static BufferedImage getImage()
         {
             String[] images = {
                     "tesla.jpg",
@@ -323,19 +541,6 @@ public class MessageGenerator {
         public static String getChoiceTwo()
         {
             return "Αγνόησε τη Συμφωνία";
-        }
-    }
-
-    public static class Player
-    {
-        public static String playerActions()
-        {
-            String[] actions = {
-                "Draw Card",
-                "",
-                ""
-            };
-            return actions[0];
         }
     }
 }

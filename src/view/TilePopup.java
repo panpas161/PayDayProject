@@ -1,5 +1,6 @@
 package view;
 
+import controller.Config;
 import model.board.Tile;
 
 import javax.swing.*;
@@ -14,14 +15,14 @@ public class TilePopup extends JFrame {
     public TilePopup(Tile tile)
     {
         GridBagConstraints c = new GridBagConstraints();
-//        this.setTitle(tile.getTitle());
+        this.setTitle(tile.getTitle());
         this.setLayout(new GridBagLayout());
         image = new JLabel(new ImageIcon(tile.getImage().getScaledInstance(100,100,Image.SCALE_SMOOTH)));
         c.fill = GridBagConstraints.HORIZONTAL;
         c.gridx = 0;
         c.gridy = 0;
         this.add(image,c);
-        description = new JLabel("description");
+        description = new JLabel(tile.getDescription());
         c.gridx = 1;
         c.gridy = 0;
         this.add(description,c);
@@ -39,6 +40,6 @@ public class TilePopup extends JFrame {
                 }
         );
         this.setVisible(true);
-        this.setSize(400,400);
+        this.setSize(Config.Dimensions.getSmallWidePopupSize());
     }
 }

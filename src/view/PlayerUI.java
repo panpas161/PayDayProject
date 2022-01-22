@@ -19,12 +19,14 @@ public class PlayerUI extends JPanel
     JButton rollDice,viewDealCards,getLoan,endTurn;
     JPanel buttonsPanel;
     JLabel diceImage;
-    public PlayerUI(Player player, Turn turn,BoardView boardView)
+    Player player;
+    public PlayerUI(Player player, Turn turn)
     {
+        this.player = player;
         name = new JLabel(player.getName());
-        balance = new JLabel("Money: " + player.getBalance() + "Euros");
-        loan = new JLabel("Loans: " + player.getLoans() + "Euros");
-        bills = new JLabel("Bills: " + player.getBills() + "Euros");
+        balance = new JLabel("Money: " + player.getBalance() + " Euros");
+        loan = new JLabel("Loans: " + player.getLoans() + " Euros");
+        bills = new JLabel("Bills: " + player.getBills() + " Euros");
         detailsPanel = new JPanel();
         rollDice = new JButton("Roll Dice");
         viewDealCards = new JButton("My Deal Cards");
@@ -76,20 +78,26 @@ public class PlayerUI extends JPanel
         }
         this.add(detailsPanel);
 
+        //events
+        Timer timer = new Timer(5, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                updatePlayerInfo();
+            }
+        });
+        timer.setRepeats(true);
+        timer.start();
+
         //buttons
         rollDice.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println("Old Position: " + player.getCurrentPosition());
                 turn.rollAndMovePlayer(player);
                 try{
                     diceImage.setIcon(getDiceImage(player));
                 } catch (IOException ioException) {
                     ioException.printStackTrace();
                 }
-                System.out.println("Dice Rolled: " + player.getDice().getCurrentValue());
-                System.out.println("New Position: " + player.getCurrentPosition());
-                boardView.updatePawns();
                 rollDice.setEnabled(false);
             }
         });
@@ -114,6 +122,12 @@ public class PlayerUI extends JPanel
         this.add(buttonsPanel);
     }
 
+    public void updatePlayerInfo()
+    {
+        this.balance.setText("Money: " + player.getBalance() + " Euros");
+        this.loan.setText("Loans: " + player.getLoans() + " Euros");
+        this.bills.setText("Bills: " + player.getBills() + " Euros");
+    }
 
     public JButton getEndTurn()
     {

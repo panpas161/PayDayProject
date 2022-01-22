@@ -11,6 +11,7 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.Random;
 
 public class TakeFromNeighbor extends MailCard {
     /**
@@ -22,10 +23,11 @@ public class TakeFromNeighbor extends MailCard {
         "Πάρε λεφτά από τον γείτονα",
             MessageGenerator.TakeFromNeighbor.getDescription(),
             ImageIO.read(new File(PathFinder.Images.getImage("format.jpeg"))),
-        "Πάρε 50 ευρώ απο τον αντίπαλο",
+            MessageGenerator.TakeFromNeighbor.getConfirmText(),
+            MessageGenerator.TakeFromNeighbor.getValue(),
             board
         );
-
+        MessageGenerator.TakeFromNeighbor.setRandomValue(new Random().nextInt(MessageGenerator.TakeFromNeighbor.getTotalCards()));
     }
 
     @Override

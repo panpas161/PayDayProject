@@ -9,6 +9,7 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.beans.PropertyChangeListener;
 import java.io.File;
 import java.io.IOException;
@@ -30,6 +31,7 @@ public class BoardView extends JPanel
     Board board;
     JLabel jackpotImage;
     JPanel tilesPanel;
+    InfoBoxView infoBoxView;
     public BoardView(Board board, Player p1, Player p2)
     {
         this.p1 = p1;
@@ -97,6 +99,16 @@ public class BoardView extends JPanel
             e.printStackTrace();
         }
 //        this.add(jackpotImage,c);
+
+        //events
+        Timer timer = new Timer(5, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                updatePawns();
+            }
+        });
+        timer.setRepeats(true);
+        timer.start();
     }
 
     /**
@@ -108,7 +120,18 @@ public class BoardView extends JPanel
         c.gridx = 0;
         c.gridy = 1;
         tiles.get(p1.getCurrentPosition()).add(playerOnePawn,c,1);
-//        System.out.println("test--\n" + board.getTiles()[p1.getCurrentPosition()].getPlayersPresent());
         tiles.get(p2.getCurrentPosition()).add(playerTwoPawn,c,1);
+        this.repaint();
     }
+
+    public void addInfoBoxView(InfoBoxView infoBoxView)
+    {
+        this.infoBoxView = infoBoxView;
+    }
+
+    public InfoBoxView getInfoBoxView()
+    {
+        return this.infoBoxView;
+    }
+
 }

@@ -19,6 +19,8 @@ public class DealTile extends Tile {
      */
     public DealTile(int number, Board board) throws IOException {
         super(
+        "Deal",
+    "",
             number,
             DaysChecker.Days.getDay(number),
             ImageIO.read(new File(PathFinder.Images.getImage("deal.png"))),

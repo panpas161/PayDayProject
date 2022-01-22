@@ -1,6 +1,7 @@
 package model.event;
 
 import functions.PathFinder;
+import view.EventPopup;
 
 import javax.imageio.ImageIO;
 import java.io.File;
@@ -20,7 +21,7 @@ public class Jackpot extends Event{
             0,
             "jackpot",
                 "Jackpot",
-                "Κερδισες κτλ",
+                "Κερδισες το jackpot!",
                 ImageIO.read(new File(PathFinder.Images.getImage("jackpot.png"))),
                 1
         );
@@ -69,6 +70,6 @@ public class Jackpot extends Event{
 
     @Override
     public void performAction() {
-//        Events.jackpot
+        new EventPopup(this);
     }
 }

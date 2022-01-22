@@ -1,6 +1,10 @@
 package model.event;
 
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
+import java.util.function.Function;
 
 /**
  * Event class represents the events of the game
@@ -13,7 +17,6 @@ public abstract class Event {
     protected BufferedImage image;
     private int optionsNumber;
     private String[] optionStrings;
-
     /**
      * Constructor.
      * Post Condition: creates a new event instance

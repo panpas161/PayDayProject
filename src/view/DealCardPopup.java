@@ -1,5 +1,6 @@
 package view;
 
+import controller.Config;
 import model.card.DealCard;
 import model.card.MailCard;
 import model.player.Player;
@@ -22,16 +23,20 @@ public class DealCardPopup extends JFrame {
         c.fill = GridBagConstraints.HORIZONTAL;
         c.gridx = 0;
         c.gridy = 0;
-        image = new JLabel(new ImageIcon(card.getImage()));
+        image = new JLabel(
+            new ImageIcon(card.getImage().getScaledInstance(100,100,Image.SCALE_SMOOTH))
+        );
         this.add(image,c);
 
         c.gridx = 1;
         c.gridy = 0;
         description = new JLabel();
         description.setText(
+                "<html>"+
                 card.getDescription() +
-                "\nΤιμή Αγοράς:" + card.getBuyPrice() +
-                "\nΤιμή Πώλησης" + card.getSellPrice()
+                "<br>Τιμή Αγοράς: " + card.getBuyPrice() +
+                "<br>Τιμή Πώλησης: " + card.getSellPrice() +
+                "</html>"
         );
         this.add(description,c);
         c.gridx = 0;
@@ -44,6 +49,9 @@ public class DealCardPopup extends JFrame {
                     public void actionPerformed(ActionEvent e) {
                         player.addDealCard(card);
                         player.removeCash(card.getBuyPrice());
+
+                        setVisible(false);
+                        dispose();
                     }
                 }
         );
@@ -61,7 +69,7 @@ public class DealCardPopup extends JFrame {
                 }
         );
         this.setVisible(true);
-        this.setSize(400,400);
+        this.setSize(Config.Dimensions.getSmallWidePopupSize());
     }
 
     public void setButtonsVisible(boolean visible)

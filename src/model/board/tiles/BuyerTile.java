@@ -1,5 +1,6 @@
 package model.board.tiles;
 
+import controller.Config;
 import model.board.Board;
 import model.board.Tile;
 
@@ -10,7 +11,6 @@ import functions.DaysChecker.Days;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -18,12 +18,13 @@ import java.util.ArrayList;
 import functions.PathFinder.Images;
 import model.card.DealCard;
 import model.player.Player;
-import view.DealCardPopup;
 
 public class BuyerTile extends Tile {
 
     public BuyerTile(int number, Board board) throws IOException {
         super(
+        "Buyer",
+        "",
             number,
             Days.getDay(number),
             ImageIO.read(new File(Images.getImage("buyer.png"))),
@@ -61,11 +62,16 @@ class SelectDealCards extends JFrame
             );
             c.gridy = 1;
             JButton sellButton = new JButton("Sell");
+            final int final_i = i;
             sellButton.addActionListener(
                     new ActionListener() {
                         @Override
                         public void actionPerformed(ActionEvent e) {
-                            new DealCardPopup(dealCards.get(1),player);
+                            DealCard tempDealCard = dealCards.get(final_i);
+                            player.addCash(tempDealCard.getSellPrice());
+                            player.removeDealCard(tempDealCard);
+                            setVisible(false);
+                            dispose();
                         }
                     }
             );
@@ -84,6 +90,6 @@ class SelectDealCards extends JFrame
         }
         this.setLayout(new GridLayout(cardPanels.size()/5,4));
         this.setVisible(true);
-        this.setSize(400,400);
+        this.setSize(Config.Dimensions.getPopupSize());
     }
 }

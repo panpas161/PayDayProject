@@ -1,5 +1,6 @@
 package view;
 
+import controller.Config;
 import model.card.Card;
 import model.card.MailCard;
 
@@ -10,7 +11,7 @@ import java.awt.event.ActionListener;
 
 public class MailCardPopup extends JFrame {
     JLabel description;
-    Button confirm;
+    JButton confirm;
     JLabel image;
     public MailCardPopup(MailCard card)
     {
@@ -28,7 +29,7 @@ public class MailCardPopup extends JFrame {
         c.gridx = 1;
         c.gridy = 0;
         this.add(description,c);
-        confirm = new Button(card.getConfirmText());
+        confirm = new JButton(card.getConfirmText());
         c.gridy = 2;
         this.add(confirm,c);
         confirm.addActionListener(
@@ -41,7 +42,7 @@ public class MailCardPopup extends JFrame {
                 }
         );
         this.setVisible(true);
-        this.setSize(400,400);
+        this.setSize(Config.Dimensions.getSmallWidePopupSize());
     }
 
 }

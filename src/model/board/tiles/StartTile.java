@@ -12,7 +12,10 @@ import java.io.IOException;
 public class StartTile extends Tile {
     public StartTile(Board board) throws IOException {
         super(
-                1,
+
+                "Start",
+                "",
+                0,
                 "Start",
                 ImageIO.read(new File(PathFinder.Images.getImage("start.png"))),
                 board

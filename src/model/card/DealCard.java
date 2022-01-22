@@ -16,12 +16,16 @@ public class DealCard extends Card {
     private String choice2;
     public DealCard()
     {
-        super(MessageGenerator.DealCard.getTitle(), MessageGenerator.DealCard.getDescription(new Random().nextInt(19) + 1), MessageGenerator.DealCard.getImage(new Random().nextInt(19) + 1));
-        int randomValue = new Random().nextInt(19) + 1;
-        this.buyPrice = MessageGenerator.DealCard.getCost(randomValue);
-        this.sellPrice = MessageGenerator.DealCard.getValue(randomValue);
+        super(
+            MessageGenerator.DealCard.getTitle(),
+            MessageGenerator.DealCard.getDescription(),
+            MessageGenerator.DealCard.getImage()
+        );
+        this.buyPrice = MessageGenerator.DealCard.getCost();
+        this.sellPrice = MessageGenerator.DealCard.getValue();
         this.choice1 = MessageGenerator.DealCard.getChoiceOne();
         this.choice2 = MessageGenerator.DealCard.getChoiceTwo();
+        MessageGenerator.DealCard.setRandomValue(new Random().nextInt(MessageGenerator.DealCard.getTotalCards()));
     }
 
     public int getBuyPrice()
@@ -42,5 +46,15 @@ public class DealCard extends Card {
     public String getChoice2()
     {
         return this.choice2;
+    }
+
+    @Override
+    public String toString() {
+        return "DealCard{" +
+                "buyPrice=" + buyPrice +
+                ", sellPrice=" + sellPrice +
+                ", choice1='" + choice1 + '\'' +
+                ", choice2='" + choice2 + '\'' +
+                '}';
     }
 }

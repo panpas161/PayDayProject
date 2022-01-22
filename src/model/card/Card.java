@@ -36,7 +36,7 @@ public abstract class Card {
      * Post Condition: sets the card's title to a certain value
      * @param title
      */
-    public void setTitle(String title) {
+    protected void setTitle(String title) {
         this.title = title;
     }
 
@@ -55,9 +55,5 @@ public abstract class Card {
 
     public BufferedImage getImage() {
         return this.image;
-    }
-
-    public void setImagePath(String path) {
-
     }
 }

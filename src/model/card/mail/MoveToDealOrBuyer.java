@@ -6,6 +6,7 @@ import functions.PathFinder;
 import model.board.Board;
 import model.board.Tile;
 import model.board.tiles.BuyerTile;
+import model.board.tiles.DealTile;
 import model.card.MailCard;
 import model.player.Player;
 import view.MailCardPopup;
@@ -33,15 +34,14 @@ public class MoveToDealOrBuyer extends MailCard {
         Player player = getOwner();
         int playerPosition = player.getCurrentPosition();
         int buyerPosition = board.getTilePosition(BuyerTile.class,playerPosition);
-        int dealPosition = board.getTilePosition(MoveToDealOrBuyer.class,playerPosition);
+        int dealPosition = board.getTilePosition(DealTile.class,playerPosition);
         if(buyerPosition > dealPosition)
         {
-            player.setCurrentPosition(dealPosition);
+            board.movePlayerToPosition(player,dealPosition);
         }
         else
         {
-            player.setCurrentMonth(buyerPosition);
+            board.movePlayerToPosition(player,buyerPosition);
         }
-        new MailCardPopup(this);
     }
 }

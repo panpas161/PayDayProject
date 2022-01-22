@@ -7,6 +7,7 @@ import model.board.tiles.*;
 import model.player.Player;
 
 import javax.imageio.ImageIO;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -100,7 +101,7 @@ public class Config {
         }
         public static int gameMonths()
         {
-            return 6;
+            return 1;
         }
     }
     public static class Images
@@ -118,7 +119,6 @@ public class Config {
     {
         public static void payDay(Player player)
         {
-            player.setCurrentMonth(player.getCurrentMonth() + 1);
             if(player.getCurrentMonth() > Config.Values.gameMonths())
             {
                 //discard player
@@ -130,7 +130,7 @@ public class Config {
             }
             player.addCash(3500);
             player.payAllBills();
-            player.removeCash(player.getLoans()*10/100);
+            player.setLoans(player.getLoans() + player.getLoans()*10/100);
         }
         public static void playerWon(Player player)
         {
@@ -139,6 +139,23 @@ public class Config {
         public static void jackpot(Player player)
         {
 
+        }
+    }
+    public static class Dimensions
+    {
+        public static Dimension getPopupSize()
+        {
+            return new Dimension(500,600);
+        }
+
+        public static Dimension getSmallWidePopupSize()
+        {
+            return new Dimension(600,350);
+        }
+
+        public static Dimension getSmallPopupSize()
+        {
+            return new Dimension(300,350);
         }
     }
 }

@@ -1,5 +1,6 @@
 package view;
 
+import controller.Config;
 import model.card.DealCard;
 import model.player.Player;
 
@@ -31,11 +32,12 @@ public class ViewDealCardsPopup extends JFrame {
             );
             c.gridy = 1;
             JButton viewButton = new JButton("View");
+            final int final_i = i;
             viewButton.addActionListener(
                     new ActionListener() {
                         @Override
                         public void actionPerformed(ActionEvent e) {
-                            DealCardPopup dealCardPopup = new DealCardPopup(dealCards.get(1),player);
+                            DealCardPopup dealCardPopup = new DealCardPopup(dealCards.get(final_i),player);
                             dealCardPopup.setButtonsEnabled(false);
                             dealCardPopup.setButtonsVisible(false);
                         }
@@ -56,7 +58,7 @@ public class ViewDealCardsPopup extends JFrame {
         }
         this.setLayout(new GridLayout(cardPanels.size()/5,4));
         this.setTitle(player.getName() + " - " + "Deal Cards");
-        this.setSize(500,500);
+        this.setSize(Config.Dimensions.getPopupSize());
         this.setVisible(true);
     }
 }

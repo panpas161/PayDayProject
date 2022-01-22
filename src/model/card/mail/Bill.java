@@ -16,16 +16,18 @@ public class Bill extends MailCard {
     public Bill(Board board) throws IOException {
         super(
                 "Εξόφληση Λογαριασμού",
-                MessageGenerator.Bill.getDescription(5),
-                MessageGenerator.Bill.getImage(5),
-                MessageGenerator.Bill.getChoice(),
+                MessageGenerator.Bill.getDescription(),
+                MessageGenerator.Bill.getImage(),
+                MessageGenerator.Bill.getConfirmText(),
+                MessageGenerator.Bill.getValue(),
                 board
         );
+        MessageGenerator.Bill.setRandomValue(new Random().nextInt(MessageGenerator.Bill.getTotalCards()));
     }
 
     @Override
     public void performAction() {
-        this.getOwner().addBills(500);
+        this.getOwner().addBills(this.getValue());
         new MailCardPopup(this);
     }
 }
